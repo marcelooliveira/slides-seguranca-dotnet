@@ -51,4 +51,17 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        await IdentitySeeder.SeedUsersAsync(services);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Erro ao executar o Seeder: {ex.Message}");
+    }
+}
+
 app.Run();
