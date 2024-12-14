@@ -24,6 +24,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.Name = "VollMed.AntiForgery"; // Nome personalizado do cookie
+    options.Cookie.HttpOnly = true; // Evitar acesso via JavaScript
+    options.HeaderName = "X-CSRF-TOKEN"; // Cabeçalho personalizado para APIs
+});
+
 builder.Services.AddTransient<IMedicoRepository, MedicoRepository>();
 builder.Services.AddTransient<IConsultaRepository, ConsultaRepository>();
 builder.Services.AddTransient<IMedicoService, MedicoService>();
