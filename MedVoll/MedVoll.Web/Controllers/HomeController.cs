@@ -1,6 +1,6 @@
-using System.Diagnostics;
-using MedVoll.Web.Models;
+﻿using MedVoll.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace MedVoll.Web.Controllers
 {
