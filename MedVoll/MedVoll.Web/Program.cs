@@ -24,6 +24,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddAuthorization();
+
 builder.Services.AddAntiforgery(options =>
 {
     options.Cookie.Name = "VollMed.AntiForgery"; // Nome personalizado do cookie
@@ -52,11 +54,15 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages()
+   .WithStaticAssets();
 
 using (var scope = app.Services.CreateScope())
 {

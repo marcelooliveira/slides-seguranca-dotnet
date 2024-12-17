@@ -1,10 +1,12 @@
 ﻿using MedVoll.Web.Dtos;
 using MedVoll.Web.Exceptions;
 using MedVoll.Web.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedVoll.Web.Controllers
 {
+    [Authorize()]
     [Route("consultas")]
     public class ConsultaController : BaseController
     {
