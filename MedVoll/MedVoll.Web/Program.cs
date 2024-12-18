@@ -24,6 +24,19 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = true; // Exigir e-mails confirmados para login
+    options.SignIn.RequireConfirmedPhoneNumber = false; // Não exigir confirmação de número de telefone
+});
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Lockout.AllowedForNewUsers = true;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+    options.Lockout.MaxFailedAccessAttempts = 2;
+});
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddAntiforgery(options =>
