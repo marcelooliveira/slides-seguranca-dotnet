@@ -37,6 +37,36 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.MaxFailedAccessAttempts = 2;
 });
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true; // Exigir pelo menos um número
+    options.Password.RequireLowercase = true; // Exigir pelo menos uma letra minúscula
+    options.Password.RequireUppercase = true; // Exigir pelo menos uma letra maiúscula
+    options.Password.RequireNonAlphanumeric = true; // Exigir caracteres especiais
+    options.Password.RequiredLength = 8; // Tamanho mínimo da senha
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = "VollMedAuthCookie"; // Nome do cookie
+    //options.LoginPath = "/Account/Login"; // Redireciona para login se não autenticado
+    //options.LogoutPath = "/Account/Logout"; // Caminho para logout
+    //options.AccessDeniedPath = "/Account/AccessDenied"; // Caminho para acesso negado
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(1); // Tempo de expiração
+    options.SlidingExpiration = true; // Renova o cookie automaticamente
+
+    options.Cookie.HttpOnly = true; // Impede acesso via JavaScript
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Exige HTTPS
+    options.Cookie.SameSite = SameSiteMode.Strict; // Restringe envio de cookies entre sites
+});
+
+
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+{
+    options.TokenLifespan = TimeSpan.FromMinutes(2); // Token expira em 2 minutos
+});
+
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddAntiforgery(options =>
