@@ -52,7 +52,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     //options.LoginPath = "/Account/Login"; // Redireciona para login se não autenticado
     //options.LogoutPath = "/Account/Logout"; // Caminho para logout
     //options.AccessDeniedPath = "/Account/AccessDenied"; // Caminho para acesso negado
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(1); // Tempo de expiração
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5); // Tempo de expiração
     options.SlidingExpiration = true; // Renova o cookie automaticamente
 
     options.Cookie.HttpOnly = true; // Impede acesso via JavaScript
@@ -66,6 +66,14 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
     options.TokenLifespan = TimeSpan.FromMinutes(2); // Token expira em 2 minutos
 });
 
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true; // Proteger cookie contra acesso via JavaScript
+    options.Cookie.IsEssential = true; // Garantir que o cookie seja salvo mesmo sem consentimento do usuário (GDPR)
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Exigir HTTPS para cookies
+    options.IdleTimeout = TimeSpan.FromMinutes(1); // Tempo de expiração da sessão
+});
 
 builder.Services.AddAuthorization();
 
@@ -82,6 +90,8 @@ builder.Services.AddTransient<IMedicoService, MedicoService>();
 builder.Services.AddTransient<IConsultaService, ConsultaService>();
 
 var app = builder.Build();
+
+app.UseSession();
 
 if (app.Environment.IsDevelopment())
 {
