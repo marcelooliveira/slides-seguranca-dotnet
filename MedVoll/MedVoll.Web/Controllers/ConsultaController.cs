@@ -2,6 +2,7 @@
 using MedVoll.Web.Exceptions;
 using MedVoll.Web.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedVoll.Web.Controllers
@@ -16,7 +17,9 @@ namespace MedVoll.Web.Controllers
         private readonly IConsultaService _consultaservice;
         private readonly IMedicoService _medicoService;
 
-        public ConsultaController(IConsultaService consultaService, IMedicoService medicoService)
+        //public ConsultaController(IConsultaService consultaService, IMedicoService medicoService)
+        public ConsultaController(SignInManager<IdentityUser> signInManager, IConsultaService consultaService, IMedicoService medicoService)
+            : base(signInManager)
         {
             _consultaservice = consultaService;
             _medicoService = medicoService;
