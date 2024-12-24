@@ -25,6 +25,7 @@
                         <option value="@especialidade">@especialidade.GetDisplayName()</option>
                     }
                 </select>
+                <span asp-validation-for="Especialidade" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -36,16 +37,19 @@
                         <option value="@medico.Id">@medico.Nome</option>
                     }
                 </select>
+                <span asp-validation-for="IdMedico" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label for="cpf">CPF do Paciente</label>
                 <input asp-for="Paciente" type="number" class="form-control" placeholder="Digite o CPF do paciente" required />
+                <span asp-validation-for="Paciente" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label for="data">Data</label>
                 <input asp-for="Data" type="datetime-local" class="form-control" required />
+                <span asp-validation-for="Data" class="text-danger"></span>
             </div>
 
             <div class="buttons">

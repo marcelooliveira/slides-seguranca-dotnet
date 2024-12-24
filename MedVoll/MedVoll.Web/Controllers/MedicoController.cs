@@ -54,6 +54,11 @@ namespace MedVoll.Web.Controllers
                 return Redirect("/medicos");
             }
 
+            if (!ModelState.IsValid)
+            {
+                return View(PaginaCadastro, dados);
+            }
+
             try
             {
                 await _service.CadastrarAsync(dados);
