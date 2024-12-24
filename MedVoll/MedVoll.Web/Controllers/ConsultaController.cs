@@ -48,7 +48,10 @@ namespace MedVoll.Web.Controllers
         {
             if (dados._method == "delete")
             {
-                await _consultaservice.ExcluirAsync(dados.Id);
+                if (dados.Id.HasValue)
+                {
+                    await _consultaservice.ExcluirAsync(dados.Id.Value);
+                }
                 return Redirect("/consultas");
             }
 
