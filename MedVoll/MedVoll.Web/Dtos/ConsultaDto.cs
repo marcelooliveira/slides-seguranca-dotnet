@@ -1,6 +1,4 @@
 ﻿using MedVoll.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System.ComponentModel.DataAnnotations;
 
 namespace MedVoll.Web.Dtos
 {
@@ -39,15 +37,10 @@ namespace MedVoll.Web.Dtos
         public long Id { get; set; }
         public string _method { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatório")]
         public long IdMedico { get; set; }
-        [ValidateNever]
         public string MedicoNome { get; set; }
-        [Required(ErrorMessage = "Campo obrigatório"), StringLength(11, MinimumLength = 11, ErrorMessage = "CPF deve ter 11 digitos")]
         public string Paciente { get; set; }
-        [Required(ErrorMessage = "Campo obrigatório"), DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
-        [Required(ErrorMessage = "Campo obrigatório")]
         public Especialidade Especialidade { get; set; }
     }
 }
