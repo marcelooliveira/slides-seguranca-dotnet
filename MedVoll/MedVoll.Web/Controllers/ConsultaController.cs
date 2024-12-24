@@ -54,13 +54,6 @@ namespace MedVoll.Web.Controllers
                 return Redirect("/consultas");
             }
 
-            if (!ModelState.IsValid)
-            {
-                IEnumerable<MedicoDto> medicos = _medicoService.ListarTodos();
-                ViewData["Medicos"] = medicos.ToList();
-                return View(PaginaCadastro, dados);
-            }
-
             try
             {
                 await _consultaservice.CadastrarAsync(dados);
