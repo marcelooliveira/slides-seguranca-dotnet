@@ -27,7 +27,8 @@
                 @foreach (var medico in Model)
                 {
                 <tr>
-                    <td>@medico.Nome</td>
+                    @* <td>@medico.Nome</td> *@
+                    <td>@Html.Raw(medico.Nome)</td>
                     <td>@medico.Email</td>
                     <td>@medico.Crm</td>
                     <td>@medico.Especialidade.GetDisplayName()</td>
