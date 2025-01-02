@@ -43,10 +43,12 @@ namespace MedVoll.Web.Controllers
             return View(PaginaCadastro, dados);
         }
 
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken()]
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> SalvarAsync([FromForm] MedicoDto dados)
+
         {
             if (dados._method == "delete")
             {

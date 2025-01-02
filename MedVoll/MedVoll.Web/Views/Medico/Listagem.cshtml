@@ -33,13 +33,16 @@
                     <td>@medico.Crm</td>
                     <td>@medico.Especialidade.GetDisplayName()</td>
                     <td>
-                        <a href="@Url.Action("Formulario", "Medicos" , new { id=medico.Id })" class="btn btn-edit" title="Editar">
-                            <img src="~/assets/edit.svg" alt="Editar">
-                        </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href="@Url.Action("Formulario", "Medicos" , new { id=medico.Id })" class="btn btn-edit" title="Editar">
+                                    <img src="~/assets/edit.svg" alt="Editar">
+                                </a>
 
-                        <a href="#deleteModal" class="btn btn-delete" data-toggle="modal" data-id="@medico.Id" data-url="/medicos" title="Excluir">
-                            <img src="~/assets/delete.svg" alt="Excluir">
-                        </a>
+                                <a href="#deleteModal" class="btn btn-delete" data-toggle="modal" data-id="@medico.Id" data-url="/medicos" title="Excluir">
+                                    <img src="~/assets/delete.svg" alt="Excluir">
+                                </a>
+                            }
                     </td>
                 </tr>
                 }
